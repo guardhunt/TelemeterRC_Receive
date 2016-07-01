@@ -31,9 +31,9 @@ class TelemeterRcDaemon():
         #self.socket.ioctl(socket.SIO_RCVALL, socket.RCVALL_ON)
         while(1):
             frame = self.socket.recv(2048)
-            print(frame)
-            if(frame[12:14] == self.type):
-                self.decode(frame[14: ])
+
+            if (int.from_bytes(frame[0:5], byteorder= "little") == 448841499394):
+                self.decode(frame)
 
     def decode(self, frame):
         appcodec.decode(frame)
